@@ -1,3 +1,6 @@
+import time
+
+
 def resolve(clause1, clause2):
     resolvents = []
     for lit in clause1:
@@ -82,7 +85,7 @@ def dpll(clauses, assignment=[]):
     return False
 
 
-# --------------------- Interfață Interactivă ---------------------
+
 
 def read_formula():
     clauses = []
@@ -116,18 +119,30 @@ def main():
     choice = input("Opțiune (1/2/3): ")
 
     if choice == "1":
+        start = time.time()
         result = resolution(clauses.copy())
+        end = time.time()
         print("\n[Rezoluție] Rezultat:", "Satisfiabilă" if result else "Nesatisfiabilă")
+        print(f"Timp de execuție: {(end - start) * 1000:.3f} ms")
+
     elif choice == "2":
+        start = time.time()
         result = dp_algorithm(clauses.copy(), variables.copy())
+        end = time.time()
         print("\n[DP] Rezultat:", "Satisfiabilă" if result else "Nesatisfiabilă")
+        print(f"Timp de execuție: {(end - start) * 1000:.3f} ms")
+
     elif choice == "3":
+        start = time.time()
         result = dpll(clauses.copy())
+        end = time.time()
         if result:
             print("\n[DPLL] Rezultat: Satisfiabilă")
             print("Atribuire satisfăcătoare:", result)
         else:
             print("\n[DPLL] Rezultat: Nesatisfiabilă")
+        print(f"Timp de execuție: {(end - start) * 1000:.3f} ms")
+
     else:
         print("Opțiune invalidă.")
 
